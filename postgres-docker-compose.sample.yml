@@ -1,0 +1,27 @@
+services:
+  db:
+    image:
+    container_name:
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD:
+    volumes:
+      - local-pgdata:/var/lib/postgresql/data
+
+  db-gui:
+    image:
+    container_name:
+    restart: always
+    ports:
+      - 5001:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL:
+      PGADMIN_DEFAULT_PASSWORD:
+    volumes:
+      - local-pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  local-pgdata:
+  local-pgadmin-data:
