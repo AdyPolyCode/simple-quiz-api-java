@@ -1,3 +1,4 @@
+-- #################### Question ####################
 INSERT INTO question (
     id,
     title,
@@ -106,4 +107,56 @@ INSERT INTO question (
     'int n = 5;',
     'float f = 5;',
     'int n = 5;'
+);
+
+-- #################### Quiz ####################
+INSERT INTO quiz (
+    id,
+    title,
+    category
+) VALUES (
+    1,
+    'Java basics',
+    'java'
+);
+
+-- #################### Quiz Questions ####################
+INSERT INTO quiz_questions (
+    questions_id,
+    quiz_id
+) VALUES (
+    1,
+    1
+);
+
+INSERT INTO quiz_questions (
+    questions_id,
+    quiz_id
+) VALUES (
+    2,
+    1
+);
+
+INSERT INTO quiz_questions (
+    questions_id,
+    quiz_id
+) VALUES (
+    3,
+    1
+);
+
+INSERT INTO quiz_questions (
+    questions_id,
+    quiz_id
+) VALUES (
+    4,
+    1
+);
+
+INSERT INTO quiz_questions (
+    questions_id,
+    quiz_id
+) VALUES (
+    5,
+    1
 );
