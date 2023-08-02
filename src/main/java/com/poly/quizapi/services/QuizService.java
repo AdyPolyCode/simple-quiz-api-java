@@ -1,6 +1,7 @@
 package com.poly.quizapi.services;
 
 import com.poly.quizapi.controllers.QuestionController;
+import com.poly.quizapi.errors.CustomError;
 import com.poly.quizapi.models.Question;
 import com.poly.quizapi.models.Quiz;
 import com.poly.quizapi.repositories.QuizRepository;
@@ -46,9 +47,10 @@ public class QuizService {
         LOG.info("<GET> : questions related to " + Quiz.class.getSimpleName() + " by id: " + id);
 
         return quiz.map(value -> questionService.getSomeByCategory(value.getCategory(), numOfQuestions)
-        ).orElseGet(() -> new ResponseEntity<>(
-                null,
-                HttpStatus.NOT_FOUND
-        ));
+        ).orElseThrow(
+                () ->
+                        new CustomError(Quiz.class.getSimpleName() + " with id: " + id + " and related questions was not found",
+                                HttpStatus.NOT_FOUND
+                        ));
     }
 }

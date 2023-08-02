@@ -1,6 +1,7 @@
 package com.poly.quizapi.services;
 
 import com.poly.quizapi.controllers.QuestionController;
+import com.poly.quizapi.errors.CustomError;
 import com.poly.quizapi.models.Question;
 import com.poly.quizapi.repositories.QuestionRepository;
 import org.slf4j.Logger;
@@ -44,10 +45,11 @@ public class QuestionService {
         return question.map(value -> new ResponseEntity<>(
                 value,
                 HttpStatus.OK
-        )).orElseGet(() -> new ResponseEntity<>(
-                null,
-                HttpStatus.NOT_FOUND
-        ));
+        )).orElseThrow(
+                () ->
+                        new CustomError(Question.class.getSimpleName() + " with id: " + id + " was not found",
+                                HttpStatus.NOT_FOUND
+                        ));
     }
 
     public ResponseEntity<Question> updateById(Integer id, Question q) {
@@ -72,10 +74,11 @@ public class QuestionService {
                     HttpStatus.OK
             );
                 })
-                .orElseGet(() -> new ResponseEntity<>(
-                        new Question(),
-                        HttpStatus.NOT_FOUND
-                ));
+                .orElseThrow(
+                        () ->
+                                new CustomError(Question.class.getSimpleName() + " with id: " + id + " was not found",
+                                        HttpStatus.NOT_FOUND
+                                ));
     }
 
     public ResponseEntity<Question> deleteById(Integer id) {
@@ -91,12 +94,11 @@ public class QuestionService {
                   HttpStatus.NO_CONTENT
                 );
         }
-        ).orElseGet(() ->
-                new ResponseEntity<>(
-                        null,
-                        HttpStatus.NOT_FOUND
-                )
-        );
+        ).orElseThrow(
+                () ->
+                        new CustomError(Question.class.getSimpleName() + " with id: " + id + " was not found",
+                                HttpStatus.NOT_FOUND
+                        ));
     }
 
     public ResponseEntity<List<Question>> getSomeByCategory(String cat, Integer numOfCat) {
